@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const EditTopicform = ({ topic }) => {
+  console.log(topic);
   const router = useRouter();
   const { _id, name, type, email, phone, alternatPhone } = topic;
 

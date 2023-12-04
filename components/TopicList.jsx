@@ -22,6 +22,7 @@ const getTopics = async () => {
 };
 const TopicList = async () => {
   const { topics } = await getTopics();
+  console.log(topics);
 
   return (
     <>

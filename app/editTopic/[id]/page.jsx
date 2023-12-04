@@ -3,7 +3,7 @@ import React from "react";
 
 const getTopic = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3001//api/topics/${id}`, {});
+    const res = await fetch(`http://localhost:3001/api/topics/${id}`, {});
     return res.json();
   } catch (error) {
     console.log(error);
@@ -11,8 +11,10 @@ const getTopic = async (id) => {
 };
 
 const EditTopic = async ({ params }) => {
+  console.log(params);
   const { id } = params;
   const { topic } = await getTopic(id);
+  console.log(topic);
 
   return (
     <div>
