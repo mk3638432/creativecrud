@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Removebtn from "./Removebtn";
 import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
@@ -11,14 +11,16 @@ import { toast } from "react-toastify";
 
 const getTopics = async () => {
   try {
-    const res = await fetch("http://localhost:3001/api/topics", {
+    const res = await fetch(`http://localhost:3001/api/topics`, {
       cache: "no-store",
     });
     if (!res.ok) {
       throw new Error("Failed to fetch topics");
     }
     return res.json();
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 const TopicList = async () => {
   const { topics } = await getTopics();
@@ -45,12 +47,7 @@ const TopicList = async () => {
           </thead>
           <tbody className="mt-10">
             {topics.map((test, index) => (
-              <TestRow
-                getTopics={getTopics}
-                key={test?._id}
-                index={index}
-                test={test}
-              />
+              <TestRow key={test?._id} index={index} test={test} />
             ))}
           </tbody>
         </table>
@@ -61,7 +58,7 @@ const TopicList = async () => {
 
 export default TopicList;
 
-export const TestRow = ({ getTopics, test, index }) => {
+export const TestRow = ({ test, index }) => {
   const router = useRouter();
   const handleDelete = async (id) => {
     try {
