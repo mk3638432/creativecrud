@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Removebtn from "./Removebtn";
 import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
