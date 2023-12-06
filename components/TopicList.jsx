@@ -1,17 +1,16 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Removebtn from "./Removebtn";
 import Link from "next/link";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import moment from "moment";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import TestRow from "./TestRow";
 
 const getTopics = async () => {
   try {
-    const res = await fetch(`http://localhost:3001/api/topics`, {
+    const res = await fetch(`http://localhost:3000/api/topics`, {
       cache: "no-store",
     });
     if (!res.ok) {
@@ -57,56 +56,3 @@ const TopicList = async () => {
 };
 
 export default TopicList;
-
-export const TestRow = ({ test, index }) => {
-  const router = useRouter();
-  const handleDelete = async (id) => {
-    try {
-      const response = await axios.delete(`/api/topics/?id=${id}`);
-      toast.success(" topics deleted successfully");
-      if (response.ok) {
-        // router.refresh();
-      }
-    } catch (error) {
-      toast.error("Error deleting user:");
-    }
-  };
-
-  return (
-    <tr
-      key={test.test_id}
-      className={`text-xs mx-10 h-10 text-gray-700 uppercase ${
-        test.type === "PHP"
-          ? "bg-green-400"
-          : test.type === "Node-Js"
-          ? "bg-yellow-400"
-          : "bg-orange-400"
-      }`}
-    >
-      <td className="px-6 py-3">{index + 1}</td>
-      <td className="px-6 py-3">{test?.name}</td>
-      <td className="px-6 py-3">{test?.type}</td>
-      <td className="px-6 py-3">{test?.email}</td>
-      <td className="px-6 py-3">{test?.phone}</td>
-      <td className="px-6 py-3">{test?.alternatPhone}</td>
-      <td className="px-6 py-3">
-        {" "}
-        {moment(test?.createdAt).format("YYYY-MM-DD HH:mm:ss")}
-      </td>
-      <td className="px-6 py-3">
-        {" "}
-        {moment(test?.updatedAt).format("YYYY-MM-DD HH:mm:ss")}{" "}
-      </td>
-      <td>
-        <Link href={`editTopic/${test?._id}`}>
-          <FaEdit size={20} />
-        </Link>
-      </td>
-      <td>
-        <button onClick={() => handleDelete(test?._id)}>
-          <MdDelete color="red" size={20} />
-        </button>
-      </td>
-    </tr>
-  );
-};

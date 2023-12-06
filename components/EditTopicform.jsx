@@ -34,6 +34,7 @@ const EditTopicform = ({ topic }) => {
       });
       toast.success("Edited successfully");
       router.push("/");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }

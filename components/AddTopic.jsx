@@ -69,6 +69,7 @@ const AddTopic = () => {
 
       //   toast.success(`User registered successfully!!!`);
       router.push("/");
+      router.refresh();
       await fetchData();
     } catch (error) {
       //   toast.error(error.response.data.error);
